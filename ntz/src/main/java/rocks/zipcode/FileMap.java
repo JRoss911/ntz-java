@@ -16,25 +16,31 @@ public class FileMap implements Serializable, Map<String,NoteList> {
     /**
      *
      */
-    private static final long serialVersionUID = 1L;
-
+    public static final long serialVersionUID = 1L;
+//static keyword means the value is the same for every instance of the class,
+// final means the variable can't change
     static final String DBNAME = "ntz.db";
 
-    private Map<String, NoteList> hashmap = new HashMap<String, NoteList>();
-
+    public Map<String, NoteList> hashmap = new HashMap<String, NoteList>();
+//private is an access modifier used for attributes, methods and constructors,
+// making them only accessible within the declared class.
     public FileMap() {
         super();
     }
-
+//super allows referencing the parent class or superclass of a subclass in Java
+    //You can call the superclass's method from within the subclass using super.
     public boolean load() {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DBNAME));
+            //
             Map<String, NoteList> tmap = (Map<String, NoteList>) ois.readObject();
             if (tmap != null) {
                 this.hashmap = tmap;
             }
             ois.close();
+            //ois = ObjectInputStream
             return true;
+//tmap is one of the core Processing components and is primarily used for mapping input data to output data
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -129,5 +135,5 @@ public class FileMap implements Serializable, Map<String,NoteList> {
         return hashmap.entrySet();
     }
 
- 
+
 }

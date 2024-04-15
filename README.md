@@ -150,7 +150,7 @@ Things you need to think about as you're doing each phase
 * How do you figure out what was passed to the program's input on the command line?
 * How do you *carefully* break that line into pieces you can handle.
 * How do you handle the "command" ( -r, -c, -f, -e) and it's arguments?
-  * How do you design a method in the Notez class to handle the command.
+  * How do you design a method in the Notez class to handle the command. 
 
 ## Database "BackEnd"
 

@@ -1,26 +1,28 @@
 package rocks.zipcode;
 
+import java.util.Map;
+
 /**
  * ntz main command.
  */
-public final class Notez {
+public final class Notez extends FileMap implements Map<String, NoteList> {
 
-    private FileMap filemap;
+    private FileMap fileMap;
 
     public Notez() {
-        this.filemap  = new FileMap();
+        this.fileMap  = new FileMap();
     }
     /**
      * Says hello to the world.
-     * 
+     *
      * @param args The arguments of the program.
      */
-    public static void main(String argv[]) {
+    public static void main(String[] args) {
         boolean _debug = true;
         // for help in handling the command line flags and data!
         if (_debug) {
             System.err.print("Argv: [");
-            for (String a : argv) {
+            for (String a : args) {
                 System.err.print(a+" ");
             }
             System.err.println("]");
@@ -32,7 +34,7 @@ public final class Notez {
 
         /*
          * You will spend a lot of time right here.
-         * 
+         *
          * instead of loadDemoEntries, you will implement a series
          * of method calls that manipulate the Notez engine.
          * See the first one:
@@ -41,12 +43,12 @@ public final class Notez {
 
         ntzEngine.saveDatabase();
 
-        if (argv.length == 0) { // there are no commandline arguments
+        if (args.length == 0) { // there are no commandline arguments
             //just print the contents of the filemap.
             ntzEngine.printResults();
         } else {
-            if (argv[0].equals("-r")) {
-                ntzEngine.addToCategory("General", argv);
+            if (args[0].equals("-r")) {
+                ntzEngine.addToCategory("General", args);
             } // this should give you an idea about how to TEST the Notez engine
               // without having to spend lots of time messing with command line arguments.
         }
@@ -55,27 +57,30 @@ public final class Notez {
          */
 
     }
+// Implementations for addToCategory, saveDatabase, loadDatabase, and potentially others
+    // ...
 
-    private void addToCategory(String string, String[] argv) {
+    public void addToCategory(String string, String[] argv) {
     }
 
-    private void saveDatabase() {
-        filemap.save();
+    public void saveDatabase() {
+        fileMap.save();
     }
 
-    private void loadDatabase() {
-        filemap.load();
+    public void loadDatabase() {
+        fileMap.load();
+        System.out.println("Database loaded!");
     }
 
     public void printResults() {
-        System.out.println(this.filemap.toString());
+        System.out.println(this.fileMap.toString());
     }
 
     public void loadDemoEntries() {
-        filemap.put("General", new NoteList("The Very first Note"));
-        filemap.put("note2", new NoteList("A secret second note"));
-        filemap.put("category3", new NoteList("Did you buy bread AND eggs?"));
-        filemap.put("anotherNote", new NoteList("Hello from ZipCode!"));
+        fileMap.put("General", new NoteList("The Very first Note"));
+        fileMap.put("note2", new NoteList("A secret second note"));
+        fileMap.put("category3", new NoteList("Did you buy bread AND eggs?"));
+        fileMap.put("anotherNote", new NoteList("Hello from ZipCode!"));
     }
     /*
      * Put all your additional methods that implement commands like forget here...
